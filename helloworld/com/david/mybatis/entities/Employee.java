@@ -1,11 +1,14 @@
 package com.david.mybatis.entities;
 
 import java.io.Serializable;
+
+import org.apache.ibatis.type.Alias;
 /**
  * entity
  * @author david
  *
  */
+//@Alias("emp") //可以使用Alias配置java的别名
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = -6728642952466653736L;

@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.david.mybatis.dao.EmployeeMapper;
+import com.david.mybatis.dao.EmployeeMapperAnnotation;
 import com.david.mybatis.entities.Employee;
 
 public class HelloTest {
@@ -73,6 +74,14 @@ public class HelloTest {
 	@Test
 	public void testGetByInterface(){
 		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+		//mapper是该接口的一个代理类
+		System.out.println(mapper);
+		Employee employee = mapper.getEmployeeById(1);
+		System.out.println(employee);
+	}
+	@Test
+	public void testGetByAnnotation(){
+		EmployeeMapperAnnotation mapper = session.getMapper(EmployeeMapperAnnotation.class);
 		//mapper是该接口的一个代理类
 		System.out.println(mapper);
 		Employee employee = mapper.getEmployeeById(1);
