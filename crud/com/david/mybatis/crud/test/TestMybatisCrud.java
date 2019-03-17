@@ -1,7 +1,5 @@
 package com.david.mybatis.crud.test;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -69,5 +67,13 @@ public class TestMybatisCrud {
 		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 		mapper.deleteEmpById(5);
 	}
-	
+	/**
+	 * 多个参数处理测试
+	 */
+	@Test
+	public void testGetEmployeeByIdAndLastName() {
+		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+		Employee emp = mapper.getEmployeeByIdAndLastName(8, "java");
+		System.out.println(emp);
+	}
 }

@@ -86,4 +86,17 @@ public Employee getEmpById(Integer id);
 	<delete id="deleteEmpById">
 		delete from david_employee where id=#{id}
 	</delete>
+	
+	<!--  -->
+	<select id="getEmployeeByIdAndLastName" resultType="employee">
+		select 
+			*
+		from david_employee
+		where 
+			id = #{id}
+		and
+			last_name=#{lastName}
+	</select>
+	
+	
 </mapper>
