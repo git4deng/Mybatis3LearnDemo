@@ -2,6 +2,8 @@ package com.david.mybatis.crud.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -74,6 +76,18 @@ public class TestMybatisCrud {
 	public void testGetEmployeeByIdAndLastName() {
 		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 		Employee emp = mapper.getEmployeeByIdAndLastName(8, "java");
+		System.out.println(emp);
+	}
+	/**
+	 * 多个参数处理测试
+	 */
+	@Test
+	public void testGetEmployeeByMap() {
+		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("id", 8);
+		params.put("lastName", "java");
+		Employee emp = mapper.getEmployeeByMap(params);
 		System.out.println(emp);
 	}
 }

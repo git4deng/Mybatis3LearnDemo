@@ -87,8 +87,18 @@ public Employee getEmpById(Integer id);
 		delete from david_employee where id=#{id}
 	</delete>
 	
-	<!--  -->
+	<!--多个参数查询-->
 	<select id="getEmployeeByIdAndLastName" resultType="employee">
+		select 
+			*
+		from david_employee
+		where 
+			id = #{id}
+		and
+			last_name=#{lastName}
+	</select>
+	<!--参数存入map中-->
+	<select id="getEmployeeByMap" resultType="employee">
 		select 
 			*
 		from david_employee

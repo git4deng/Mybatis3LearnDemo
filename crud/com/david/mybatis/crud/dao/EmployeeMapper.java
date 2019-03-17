@@ -1,5 +1,7 @@
 package com.david.mybatis.crud.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.david.mybatis.crud.entities.Employee;
@@ -15,4 +17,8 @@ public interface EmployeeMapper {
 	 * 可以使用@Param注解指定key值，这样在mapper配置文件直接拿Param标记对应的value即可
 	 */
 	public Employee getEmployeeByIdAndLastName(@Param("id")Integer id,@Param("lastName")String lastName);
+	
+	//参数过多也没有对应pojo封装可以使用map封装参数
+	public Employee getEmployeeByMap(Map<String,Object> params);
+	
 }
