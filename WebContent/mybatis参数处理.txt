@@ -122,7 +122,7 @@ Preparing: select * from tbl_employee where id=2 and last_name=?
 		大多情况下，我们去参数的值都应该去使用#{}；
 		
 		原生jdbc不支持占位符的地方我们就可以使用${}进行取值
-		比如分表、排序。。。；按照年份分表拆分
+		比如分表、排序。。。；按照年份分表拆分，表名预编译的时候不支持占位符，所以不能使用#{}，只能使用${}
 			select * from ${year}_salary where xxx;
 			select * from tbl_employee order by ${f_name} ${order}
 
@@ -137,7 +137,7 @@ Preparing: select * from tbl_employee where id=2 and last_name=?
 		JdbcType OTHER：无效的类型；因为mybatis对所有的null都映射的是原生Jdbc的OTHER类型，oracle不能正确处理;
 		
 		由于全局配置中：jdbcTypeForNull=OTHER；oracle不支持；两种办法
-		1、#{email,jdbcType=OTHER};
+		1、#{email,jdbcType=NULL};
 		2、jdbcTypeForNull=NULL
 			<setting name="jdbcTypeForNull" value="NULL"/>
 			
