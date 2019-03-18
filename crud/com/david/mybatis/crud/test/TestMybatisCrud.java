@@ -3,8 +3,10 @@ package com.david.mybatis.crud.test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -89,5 +91,32 @@ public class TestMybatisCrud {
 		params.put("lastName", "java");
 		Employee emp = mapper.getEmployeeByMap(params);
 		System.out.println(emp);
+	}
+	/**
+	 * 测试返回List集合
+	 */
+	@Test
+	public void testGetEmpsByLastNameLike(){
+		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+		List<Employee> emps = mapper.getEmpsByLastNameLike("java");
+		System.out.println(emps);
+	}
+	/**
+	 * 测试一条数据返回map
+	 */
+	@Test
+	public void testGetEmpByIdReturnMap(){
+		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+		Map<String, Object> map = mapper.getEmpByIdReturnMap(6);
+		System.out.println(map);
+	}
+	/**
+	 * 多条数据返回一个map，Map<Integer,Employee>,key是这条记录的主键，值是记录封装后的JavaBean,其中key由@MapKey("id")注解指定
+	 */
+	@Test
+	public void testGetEmpsByLastNameLikeReturnMap(){
+		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+		Map<String, Employee> map = mapper.getEmpsByLastNameLikeReturnMap("java");
+		System.out.println(map);
 	}
 }
