@@ -20,7 +20,6 @@
 		<!--其它不指定的列，自动封装，推荐只要写resultMap就把所有列都对应起来-->
 		<result column="email" property="email"/>
 		<result column="gender" property="gender"/>
-		
 	</resultMap>
 	<select id="getEmpById" resultMap="emp">
 		select * from david_employee where id=#{id}
@@ -76,9 +75,37 @@
 		<association property="dept" select="com.david.mybatis.crud.dao.DepartmentMapper.getDeptById"
 			column="d_id" fetchType="eager"></association>
 	</resultMap>
-	<select id="getEmpByIdStep" resultMap="emp_and_dept_3">
+	<select id="getEmpByIdStep" resultMap="emp_and_dept_4">
 		select * from david_employee where id=#{id}
 	</select>
+	
+	<resultMap type="com.david.mybatis.crud.entities.Employee" id="emp_and_dept_4">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="email" property="email"/>
+		<result column="gender" property="gender" />
+		<!-- 鉴别器：mybatis可以使用discriminator标签判断某列的值，然后根据某列的值改变封装行为
+			如果查询的是女生：那么查出部门信息
+			如果查询的是男生：那么不要部门信息，并把last_name放入email
+			javaType:指定判定的列明
+			column：列值对应的java类型
+		 -->
+		<discriminator javaType="string" column="gender">
+			<!--resultType指定封装的类型-->
+			<!--女生-->
+			<case value="0" resultType="com.david.mybatis.crud.entities.Employee">
+				<association property="dept" select="com.david.mybatis.crud.dao.DepartmentMapper.getDeptById"
+			column="d_id"></association>
+			</case>
+			<!--男生-->
+			<case value="1" resultType="com.david.mybatis.crud.entities.Employee">
+				<result column="last_name" property="email"/>
+			</case>
+		</discriminator>
+	</resultMap>
+	
+	
+	
 	<!--依据部门id,查询该部门下的所有的员工信息  -->
 	<select id="getEmpsByDid" resultType="com.david.mybatis.crud.entities.Employee">
 		select * from david_employee where d_id=#{id}

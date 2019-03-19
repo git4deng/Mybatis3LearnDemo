@@ -72,6 +72,7 @@ public class TestMybatisCrudPlus {
 		System.out.println(emp.getLastName());
 		//使用dept对象才会发送查询dept对象的sql
 		System.out.println(emp.getDept());
+		System.out.println(emp);
 	}
 	/**
 	 * resultMap关联查询，collection集合属性定义封装规则之嵌套查询测试
