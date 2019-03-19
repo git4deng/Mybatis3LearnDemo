@@ -46,11 +46,13 @@
 	<resultMap type="com.david.mybatis.crud.entities.Department" id="dept_2">
 		<id column="id" property="id"/>
 		<result column="departmentName" property="departmentName"/>
-		<collection property="emps" select="com.david.mybatis.crud.dao.EmployeeMapperPlus.getEmpsByDid" column="{id=id}"></collection>
+		<collection property="emps" select="com.david.mybatis.crud.dao.EmployeeMapperPlus.getEmpsByDid" column="{id=id}"
+		 fetchType="eager"/>
 	</resultMap>
 	<!--扩展，分步查询传递多个参数：将多个参数封装成map的形式传过去
 		即：column="{key1=column1,key2=column2,key2=column2...}"
 		其中key为调用其它方法的参数名，column为传入的列明，也就是说，上面column可以配置成：column="{id=id}",即getEmpsByDid方法接受参数的名字为id
+		另外还可以配置fetchType="eager"来配置立即加载，就近原则
 	-->
 	<!--关联查询集合属性封装规则之二：分步查询-->
 	<select id="getDeptWithEmpsByIdStep" resultMap="dept_2">

@@ -74,7 +74,7 @@
 		<result column="email" property="email"/>
 		<result column="gender" property="gender"/>
 		<association property="dept" select="com.david.mybatis.crud.dao.DepartmentMapper.getDeptById"
-			column="d_id"></association>
+			column="d_id" fetchType="eager"></association>
 	</resultMap>
 	<select id="getEmpByIdStep" resultMap="emp_and_dept_3">
 		select * from david_employee where id=#{id}
