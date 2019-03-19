@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.david.mybatis.crud.dao.DepartmentMapper">
+	
+	<select id="getDeptById" resultType="com.david.mybatis.crud.entities.Department">
+		select 
+			id id,
+			dept_name departmentName
+		from david_dept
+		where 
+			id = #{id}
+	</select>
+	
+</mapper>

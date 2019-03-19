@@ -57,4 +57,18 @@ public class TestMybatisCrudPlus {
 		Employee emp = mapper.getEmpAndDeptById(6);
 		System.out.println(emp);
 	}
+	/**
+	 * 关联查询的resultMap封装规则设置测试，使用association标签定义分步查询映射规则,
+	 * 分步查询可以使用延迟加载，只需在全局配置文件中配置2个属性：
+	 * <setting name="lazyLoadingEnabled" value="true"/>
+	 * <setting name="aggressiveLazyLoading" value="false"/>
+	 * 就可以达到 dept在需要的时候才查询的效果,即只会发送一条sql
+	 */
+	@Test
+	public void getEmpByIdStepTest(){
+		Employee emp = mapper.getEmpByIdStep(6);
+		System.out.println(emp.getLastName());
+		//使用dept对象才会发送查询dept对象的sql
+		System.out.println(emp.getDept());
+	}
 }

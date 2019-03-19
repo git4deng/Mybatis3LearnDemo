@@ -9,6 +9,9 @@
 	<settings>
 	<!--开启数据库字段下划线对应实体属性的驼峰命名方式 即 last_name 对应实体类的 lastName,即不用再写别名的方式了-->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!--开启懒加载模式-->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
 	</settings>
 	
 	<!-- 3、typeAliases：别名处理器：可以为我们的java类型起别名 别名不区分大小写-->

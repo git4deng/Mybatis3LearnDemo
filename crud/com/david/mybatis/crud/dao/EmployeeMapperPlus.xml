@@ -27,7 +27,7 @@
 	</select>
 	
 	<!--联合查询方式一：使用级联属性封装-->
-	<resultMap type="com.david.mybatis.crud.entities.Employee" id="emp_and_dept">
+	<resultMap type="com.david.mybatis.crud.entities.Employee" id="emp_and_dept_1">
 		<id column="id" property="id"/>
 		<result column="last_name" property="lastName"/>
 		<result column="email" property="email"/>
@@ -35,7 +35,7 @@
 		<result column="did" property="dept.id"/>
 		<result column="dept_name" property="dept.departmentName"/>
 	</resultMap>
-	<!--联合查询方式二：使用级联属性封装-->
+	<!--联合查询方式二：使用嵌套结果集的方式-->
 	<resultMap type="com.david.mybatis.crud.entities.Employee" id="emp_and_dept_2">
 		<id column="id" property="id"/>
 		<result column="last_name" property="lastName"/>
@@ -62,5 +62,21 @@
 		from david_employee e
 		left join david_dept d on e.d_id=d.id
 		where e.id=#{id}
+	</select>
+	<!--联合查询方式三：使用association分步查询
+		select:表明当前属性是调用select指定方法查询结果
+		column：指定那一列的值传给这个方法
+		流程：使用select指定方法（传入column指定的这列参数值）查出对象，并封装给property对应的属性
+	-->
+	<resultMap type="com.david.mybatis.crud.entities.Employee" id="emp_and_dept_3">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="email" property="email"/>
+		<result column="gender" property="gender"/>
+		<association property="dept" select="com.david.mybatis.crud.dao.DepartmentMapper.getDeptById"
+			column="d_id"></association>
+	</resultMap>
+	<select id="getEmpByIdStep" resultMap="emp_and_dept_3">
+		select * from david_employee where id=#{id}
 	</select>
 </mapper>

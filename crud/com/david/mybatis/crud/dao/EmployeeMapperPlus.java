@@ -7,5 +7,7 @@ public interface EmployeeMapperPlus {
 	public Employee getEmpById(Integer id);
 	//关联查询的resultMap映射规则配置
 	public Employee getEmpAndDeptById(Integer id);
+	//关联查询的resultMap分步查询
+	public Employee getEmpByIdStep(Integer id);
 	
 }
