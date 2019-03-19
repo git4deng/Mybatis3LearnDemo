@@ -15,8 +15,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.david.mybatis.crud.dao.DepartmentMapper;
 import com.david.mybatis.crud.dao.EmployeeMapper;
 import com.david.mybatis.crud.dao.EmployeeMapperPlus;
+import com.david.mybatis.crud.entities.Department;
 import com.david.mybatis.crud.entities.Employee;
 
 public class TestMybatisCrudPlus {
@@ -70,5 +72,14 @@ public class TestMybatisCrudPlus {
 		System.out.println(emp.getLastName());
 		//使用dept对象才会发送查询dept对象的sql
 		System.out.println(emp.getDept());
+	}
+	/**
+	 * resultMap关联查询，collection集合属性定义封装规则测试
+	 */
+	@Test
+	public void getDeptWithEmpsByIdTest(){
+		DepartmentMapper mapper=session.getMapper(DepartmentMapper.class);
+		Department dept = mapper.getDeptWithEmpsById(1);
+		System.out.println(dept);
 	}
 }
