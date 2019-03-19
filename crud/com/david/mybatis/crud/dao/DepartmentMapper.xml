@@ -12,7 +12,7 @@
 		where 
 			id = #{id}
 	</select>
-	<!--  -->
+	<!--嵌套结果集的方式，使用collection标签定义关联集合类型的属性封装规则-->
 	<resultMap type="com.david.mybatis.crud.entities.Department" id="dept_1">
 		<id column="id" property="id"/>
 		<result column="departmentName" property="departmentName"/>
@@ -43,5 +43,21 @@
 		on d.id=e.d_id
 		where d.id=#{id}
 	</select>
+	<resultMap type="com.david.mybatis.crud.entities.Department" id="dept_2">
+		<id column="id" property="id"/>
+		<result column="departmentName" property="departmentName"/>
+		<collection property="emps" select="com.david.mybatis.crud.dao.EmployeeMapperPlus.getEmpsByDid" column="id"></collection>
+	</resultMap>
+	
+	<!--关联查询集合属性封装规则之二：分步查询-->
+	<select id="getDeptWithEmpsByIdStep" resultMap="dept_2">
+		select 
+			id id,
+			dept_name departmentName
+		from david_dept
+		where 
+			id = #{id}
+	</select>
+	
 	
 </mapper>

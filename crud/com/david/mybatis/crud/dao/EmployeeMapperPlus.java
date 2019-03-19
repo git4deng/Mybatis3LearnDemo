@@ -1,5 +1,7 @@
 package com.david.mybatis.crud.dao;
 
+import java.util.List;
+
 import com.david.mybatis.crud.entities.Employee;
 
 public interface EmployeeMapperPlus {
@@ -9,5 +11,6 @@ public interface EmployeeMapperPlus {
 	public Employee getEmpAndDeptById(Integer id);
 	//关联查询的resultMap分步查询
 	public Employee getEmpByIdStep(Integer id);
+	public List<Employee> getEmpsByDid(Integer id);
 	
 }

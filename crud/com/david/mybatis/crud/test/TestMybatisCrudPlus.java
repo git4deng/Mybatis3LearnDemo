@@ -74,12 +74,23 @@ public class TestMybatisCrudPlus {
 		System.out.println(emp.getDept());
 	}
 	/**
-	 * resultMap关联查询，collection集合属性定义封装规则测试
+	 * resultMap关联查询，collection集合属性定义封装规则之嵌套查询测试
 	 */
 	@Test
 	public void getDeptWithEmpsByIdTest(){
 		DepartmentMapper mapper=session.getMapper(DepartmentMapper.class);
 		Department dept = mapper.getDeptWithEmpsById(1);
 		System.out.println(dept);
+	}
+	/**
+	 * resultMap关联查询，collection集合属性定义封装规则之分步查询测试
+	 * 同样，懒加载机制一样适合集合属性的查询
+	 */
+	@Test
+	public void getDeptWithEmpsByIdStepTest(){
+		DepartmentMapper mapper=session.getMapper(DepartmentMapper.class);
+		Department dept = mapper.getDeptWithEmpsByIdStep(1);
+		System.out.println(dept.getDepartmentName());
+		System.out.println(dept.getEmps());
 	}
 }
