@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<properties resource="dbconfig.properties"></properties>
+	
+	<settings>
+	<!--开启数据库字段下划线对应实体属性的驼峰命名方式 即 last_name 对应实体类的 lastName,即不用再写别名的方式了-->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!--开启懒加载模式-->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+	
+	<!-- 3、typeAliases：别名处理器：可以为我们的java类型起别名 别名不区分大小写-->
+	<typeAliases>
+		<!-- 1、typeAlias:为某个java类型起别名
+				type:指定要起别名的类型全类名;默认别名就是类名小写；employee
+				alias:指定新的别名
+		 -->
+		<!-- <typeAlias type="com.david.mybatis.entities.Employee" alias="employee"/> -->
+		<!-- 2、package:为某个包下的所有类批量起别名 
+				name：指定包名（为当前包以及下面所有的后代包的每一个类都起一个默认别名（类名小写），）
+		-->
+		<package name="com.david.mybatis.dynamicSql.entities"/>
+		<!-- 3、批量起别名的情况下，使用@Alias注解为某个类型指定新的别名 -->
+	</typeAliases>
+	<environments default="dev_mysql">
+		<environment id="dev_mysql">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+		<environment id="dev_oracle">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${orcl.driver}" />
+				<property name="url" value="${orcl.url}" />
+				<property name="username" value="${orcl.username}" />
+				<property name="password" value="${orcl.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<databaseIdProvider type="DB_VENDOR">
+		<!-- 为不同的数据库厂商起别名 -->
+		<property name="MySQL" value="mysql"/>
+		<property name="Oracle" value="oracle"/>
+		<property name="SQL Server" value="sqlserver"/>
+	</databaseIdProvider>
+	<mappers>
+		<package name="com.david.mybatis.dynamicSql.dao"/>	
+	</mappers>
+</configuration>

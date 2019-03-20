@@ -2,11 +2,7 @@ package com.david.mybatis.crud.test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.david.mybatis.crud.dao.DepartmentMapper;
-import com.david.mybatis.crud.dao.EmployeeMapper;
 import com.david.mybatis.crud.dao.EmployeeMapperPlus;
 import com.david.mybatis.crud.entities.Department;
 import com.david.mybatis.crud.entities.Employee;

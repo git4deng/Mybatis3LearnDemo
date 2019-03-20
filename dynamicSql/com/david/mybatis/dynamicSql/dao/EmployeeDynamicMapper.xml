@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.david.mybatis.dynamicSql.dao.EmployeeDynamicMapper">
+	<select id="getEmpsByConditionIf" resultType="com.david.mybatis.dynamicSql.entities.Employee">
+		select
+			* 
+		from 
+			david_employee
+		<!--where 紧接着的动态查询条件不满足可能造成 sql出错解决办法：
+			办法一：给where后面加上1=1，后面的条件全都带上and
+		  -->
+		<!-- 
+		where  
+			1=1
+		<if test="id!=null">
+			and id=#{id}
+		</if>
+		<if test="lastName!=null and lastName!=''">
+			and last_name like #{lastName}
+		</if>
+		<if test="email!=null and email.trim()!=''">
+			and email=#{email}
+		</if>
+		<if test="gender==0 or gender==1">
+			and gender=#{gender}
+		</if>
+		-->
+		<!-- 办法二：使用where标签来将所有查询条件包括在内,mybatis就会将多出来的 and或者or去掉，但是只会去掉第一个多出来的and或者or
+			所以在使用where标签的时候，把and写在前面
+		 -->
+		<where>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+			<if test="lastName!=null and lastName!=''">
+				and last_name like #{lastName}
+			</if>
+			<if test="email!=null and email.trim()!=''">
+				and email=#{email}
+			</if>
+			<if test="gender==0 or gender==1">
+				and gender=#{gender}
+			</if>
+		</where>
+	</select>
+	<!--
+		如果and 或者or 写在后面的话，where标签无法处理，我们可以利用trim来解决这个问题
+	-->
+	<select id="getEmpsByConditionTrim" resultType="com.david.mybatis.dynamicSql.entities.Employee">
+		select
+			* 
+		from 
+			david_employee
+		<!--
+	 		prefix:前缀：trim标签体中是整个字符串拼串 后的结果,prefix给拼串后的整个字符串加一个前缀 
+	 		prefixOverrides:前缀覆盖： 去掉整个字符串前面多余的字符
+	 		suffix:后缀,suffix给拼串后的整个字符串加一个后缀 
+	 		suffixOverrides:后缀覆盖：去掉整个字符串后面多余的字符
+	 			
+	 	-->
+		<trim prefix="where" prefixOverrides="" suffix="" suffixOverrides="and">
+			<if test="id!=null">
+				id=#{id} and 
+			</if>
+			<if test="lastName!=null and lastName!=''">
+				last_name like #{lastName} and 
+			</if>
+			<if test="email!=null and email.trim()!=''">
+				email=#{email} and 
+			</if>
+			<if test="gender==0 or gender==1">
+				gender=#{gender}
+			</if>
+		</trim>
+	</select>
+</mapper>
