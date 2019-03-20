@@ -56,5 +56,22 @@ public class TestMybatisDynamicSql {
 		List<Employee> emps = mapper.getEmpsByConditionIf(emp);
 		System.out.println(emps);
 	}
+	/**
+	 * 动态查询 trim标签测试
+	 */
+	@Test
+	public void getEmpsByConditionChooseTest(){
+		Employee emp =new Employee(null,null, "java@java.com", "1");
+		List<Employee> emps = mapper.getEmpsByConditionChoose(emp);
+		System.out.println(emps);
+	}
+	/**
+	 * 动态查询 trim标签测试
+	 */
+	@Test
+	public void updateEmployeeBySetTest(){
+		Employee emp =new Employee(6,"java_sql", "sql@sql.com",null);
+		mapper.updateEmployeeBySet(emp);
+	}
 	
 }
